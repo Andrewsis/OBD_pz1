@@ -1,0 +1,29 @@
+WITH
+first_table AS
+(
+SELECT first_name || ' ' || last_name AS full_name,
+    salary,
+    job_id
+    FROM HR.Employees
+),
+
+second_table AS 
+(
+    SELECT job_id,
+    MAX(salary) AS max_salary,
+    MIN(salary) AS min_salary
+    FROM HR.Employees
+    GROUP BY job_id
+)
+
+SELECT first_table.full_name,
+    second_table.job_id,
+    first_table.salary,
+    second_table.min_salary,
+    second_table.max_salary
+    FROM first_table 
+    
+    JOIN second_table ON 
+    first_table.salary = second_table.min_salary 
+    AND
+    first_table.job_id = second_table.job_id
