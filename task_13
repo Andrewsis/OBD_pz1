@@ -1,0 +1,10 @@
+SELECT first_name || ' ' || last_name AS full_name,
+	salary*12 as salary,
+	(NVL(commission_pct, 0) * salary) * 12 AS salary_bonus,
+	((NVL(commission_pct, 0) * salary) + salary) * 12 AS gross_income,
+	(((NVL(commission_pct, 0) * salary) + salary) * 12) * 0.19 AS tax,
+    (((NVL(commission_pct, 0) * salary) + salary) * 12) * 0.81 AS net_salary
+FROM HR.Employees	
+
+ORDER BY net_salary
+	
